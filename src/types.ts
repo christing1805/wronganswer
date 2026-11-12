@@ -2,6 +2,7 @@ export interface VariantQuestion {
   id: string;
   typeTag: string; // e.g. "变式一（同源情境巩固）", "变式二（逆向思维探究）", "变式三（防坑陷阱拓展）"
   question: string;
+  scratchpadVerification?: string;
   answer: string;
   analysis: string;
   trapAnalysis: string;
@@ -17,6 +18,7 @@ export interface MistakeRecord {
   difficulty: string;
   originalImage?: string;
   questionText: string;
+  scratchpadVerification?: string;
   standardAnswer: string;
   analysis: string;
   mistakeDiagnosis: string;

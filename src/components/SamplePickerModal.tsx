@@ -2,6 +2,7 @@ import React from 'react';
 import { SAMPLE_MISTAKES } from '../data/samples';
 import { MistakeRecord } from '../types';
 import { X, BookOpen, Sparkles, CheckCircle2 } from 'lucide-react';
+import { MathText } from './MathText';
 
 interface SamplePickerModalProps {
   isOpen: boolean;
@@ -25,8 +26,8 @@ export const SamplePickerModal: React.FC<SamplePickerModalProps> = ({
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-stone-900">精选经典错题体验库</h3>
-              <p className="text-xs text-stone-500">点击任意错题可一键载入工作台，体验知识点提取与举一反三</p>
+              <h3 className="text-lg font-bold text-stone-900">中小学经典错题体验库（1~9年级）</h3>
+              <p className="text-xs text-stone-500">涵盖小学分数应用题、简便计算、初中几何动点方程、初中物理浮力等经典课标高频易错真题</p>
             </div>
           </div>
           <button
@@ -65,9 +66,9 @@ export const SamplePickerModal: React.FC<SamplePickerModalProps> = ({
                 </div>
               </div>
 
-              <p className="text-sm text-stone-700 line-clamp-2 font-mono mb-2">
-                {sample.questionText}
-              </p>
+              <div className="text-sm text-stone-700 line-clamp-2 mb-2 font-sans">
+                <MathText text={sample.questionText} />
+              </div>
 
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs text-rose-600 font-medium flex items-center gap-1">

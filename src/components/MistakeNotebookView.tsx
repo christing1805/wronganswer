@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { HighlightText } from './HighlightText';
+import { MathText } from './MathText';
 
 interface MistakeNotebookViewProps {
   mistakes: MistakeRecord[];
@@ -48,8 +49,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({
   // Filtered mistakes
   const filteredMistakes = useMemo(() => {
     return mistakes.filter(m => {
-      // Subject filter
-      if (selectedSubject !== '全部' && m.subject !== selectedSubject) {
+      // Subject filter (supports 小学数学, 初中数学 matching 数学)
+      if (selectedSubject !== '全部' && !m.subject.includes(selectedSubject)) {
         return false;
       }
       // Status filter
@@ -373,9 +374,9 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({
                     onClick={() => setExpandedCardId(isExpanded ? null : m.id)}
                     className="cursor-pointer group"
                   >
-                    <p className="text-stone-800 text-sm font-sans leading-relaxed line-clamp-3 mb-3">
-                      {m.questionText}
-                    </p>
+                    <div className="text-stone-800 text-sm font-sans leading-relaxed line-clamp-3 mb-3">
+                      <MathText text={m.questionText} />
+                    </div>
 
                     {/* Mistake keywords */}
                     <div className="flex items-center gap-1.5 flex-wrap mb-3">
@@ -397,10 +398,10 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({
                       {/* Standard solution */}
                       <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200 text-xs sm:text-sm space-y-1.5">
                         <div className="font-bold text-stone-900">
-                          【标准答案】：<span className="text-emerald-700">{m.standardAnswer}</span>
+                          【标准答案】：<span className="text-emerald-700 font-semibold"><MathText text={m.standardAnswer} /></span>
                         </div>
                         <div className="text-stone-700 whitespace-pre-wrap leading-relaxed">
-                          <span className="font-bold">【名师解析】：</span>{m.analysis}
+                          <span className="font-bold">【名师解析】：</span><MathText text={m.analysis} />
                         </div>
                       </div>
 
@@ -426,9 +427,9 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({
                               className="p-3 bg-amber-50/40 border border-amber-200/60 rounded-xl text-xs space-y-1"
                             >
                               <div className="font-bold text-amber-900">{v.typeTag || `变式 ${vIdx + 1}`}</div>
-                              <div className="text-stone-800 whitespace-pre-wrap">{v.question}</div>
+                              <div className="text-stone-800 whitespace-pre-wrap leading-relaxed"><MathText text={v.question} /></div>
                               <div className="text-stone-600 pt-1">
-                                <span className="font-semibold text-emerald-800">答案：</span>{v.answer}
+                                <span className="font-semibold text-emerald-800">答案：</span><MathText text={v.answer} />
                               </div>
                             </div>
                           ))}

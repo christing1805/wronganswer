@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMathInString } from './MathText';
 
 interface HighlightTextProps {
   text: string;
@@ -15,7 +16,7 @@ export const HighlightText: React.FC<HighlightTextProps> = ({
 }) => {
   if (!text) return null;
   if (!keywords || keywords.length === 0) {
-    return <span className={className}>{text}</span>;
+    return <span className={className}>{formatMathInString(text)}</span>;
   }
 
   // Filter valid non-empty keywords and escape regex
@@ -25,7 +26,7 @@ export const HighlightText: React.FC<HighlightTextProps> = ({
     .sort((a, b) => b.length - a.length);
 
   if (validKeywords.length === 0) {
-    return <span className={className}>{text}</span>;
+    return <span className={className}>{formatMathInString(text)}</span>;
   }
 
   const escaped = validKeywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
@@ -42,11 +43,11 @@ export const HighlightText: React.FC<HighlightTextProps> = ({
         if (isMatch) {
           return (
             <mark key={index} className={highlightClass}>
-              {part}
+              {formatMathInString(part)}
             </mark>
           );
         }
-        return <span key={index}>{part}</span>;
+        return <span key={index}>{formatMathInString(part)}</span>;
       })}
     </span>
   );

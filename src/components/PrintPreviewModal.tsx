@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MistakeRecord, PrintSettings } from '../types';
 import { X, Printer, Settings2, FileText, CheckCircle2, AlertTriangle, Eye, Layers } from 'lucide-react';
 import { HighlightText } from './HighlightText';
+import { MathText } from './MathText';
 
 interface PrintPreviewModalProps {
   isOpen: boolean;
@@ -24,7 +25,7 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
     showWatermark: false,
     studentName: '',
     className: '',
-    paperTitle: '《错题举一反三专项巩固训练卷》',
+    paperTitle: '《中小学错题举一反三专项巩固训练卷》',
     layoutColumns: 1,
   });
 
@@ -287,7 +288,7 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                       【原题再现与反思】
                     </div>
                     <div className="text-stone-900 whitespace-pre-wrap font-sans leading-relaxed mb-3">
-                      {mistake.questionText}
+                      <MathText text={mistake.questionText} />
                     </div>
 
                     {/* If mistake note exists */}
@@ -302,10 +303,10 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                     {!settings.answersAtEnd && settings.includeAnswers && (
                       <div className="mt-3 pt-2 border-t border-amber-200/60 text-xs space-y-1.5 bg-white/80 p-2.5 rounded">
                         <div className="font-bold text-stone-900">
-                          【参考答案】<span className="text-emerald-700">{mistake.standardAnswer}</span>
+                          【参考答案】<span className="text-emerald-700 font-semibold"><MathText text={mistake.standardAnswer} /></span>
                         </div>
-                        <div className="text-stone-700 whitespace-pre-wrap">
-                          <span className="font-bold">【解析】：</span>{mistake.analysis}
+                        <div className="text-stone-700 whitespace-pre-wrap leading-relaxed">
+                          <span className="font-bold">【解析】：</span><MathText text={mistake.analysis} />
                         </div>
                         <div className="text-rose-900 bg-rose-50/80 p-2 rounded border border-rose-200/60 mt-1">
                           <span className="font-bold">【易错点警示】：</span>
@@ -343,7 +344,7 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                           {v.typeTag || `变式练习 ${vIdx + 1}`}
                         </div>
                         <div className="text-stone-900 whitespace-pre-wrap leading-relaxed mb-2 font-sans">
-                          {v.question}
+                          <MathText text={v.question} />
                         </div>
 
                         {/* Blank answer area in exam mode */}
@@ -359,10 +360,10 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                           <div className="text-xs bg-stone-50 p-2.5 rounded border border-stone-200 space-y-1.5 mt-2">
                             <div>
                               <span className="font-bold text-stone-900">【参考答案】：</span>
-                              <span className="text-emerald-700 font-semibold">{v.answer}</span>
+                              <span className="text-emerald-700 font-semibold"><MathText text={v.answer} /></span>
                             </div>
-                            <div className="text-stone-700 whitespace-pre-wrap">
-                              <span className="font-bold">【思路点拨】：</span>{v.analysis}
+                            <div className="text-stone-700 whitespace-pre-wrap leading-relaxed">
+                              <span className="font-bold">【思路点拨】：</span><MathText text={v.analysis} />
                             </div>
                             <div className="text-rose-900 bg-rose-50 p-2 rounded border border-rose-200">
                               <span className="font-bold">【易错避坑】：</span>
@@ -398,8 +399,8 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                     {settings.includeOriginal && (
                       <div className="text-xs mb-3 pl-3 border-l-2 border-amber-600 space-y-1">
                         <div className="font-semibold text-amber-900">【原题答案与解析】：</div>
-                        <div className="text-emerald-800 font-bold">答案：{mistake.standardAnswer}</div>
-                        <div className="text-stone-700 whitespace-pre-wrap">{mistake.analysis}</div>
+                        <div className="text-emerald-800 font-bold">答案：<MathText text={mistake.standardAnswer} /></div>
+                        <div className="text-stone-700 whitespace-pre-wrap leading-relaxed"><MathText text={mistake.analysis} /></div>
                         <div className="text-rose-900 bg-rose-50 p-2 rounded border border-rose-200 mt-1">
                           <span className="font-bold">【原题典型错因】：</span>
                           <HighlightText text={mistake.mistakeDiagnosis} keywords={mistake.mistakeKeywords} />
@@ -412,8 +413,8 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
                         {mistake.variants.map((v, vIdx) => (
                           <div key={v.id || vIdx} className="text-xs border-l-2 border-stone-400 pl-2 space-y-1">
                             <div className="font-bold text-stone-800">{v.typeTag || `变式 ${vIdx + 1}`}：</div>
-                            <div className="text-emerald-800 font-bold">答案：{v.answer}</div>
-                            <div className="text-stone-700 whitespace-pre-wrap">{v.analysis}</div>
+                            <div className="text-emerald-800 font-bold">答案：<MathText text={v.answer} /></div>
+                            <div className="text-stone-700 whitespace-pre-wrap leading-relaxed"><MathText text={v.analysis} /></div>
                             <div className="text-rose-900 bg-rose-50/80 p-2 rounded border border-rose-200">
                               <span className="font-bold">【避坑提醒】：</span>
                               <HighlightText text={v.trapAnalysis} keywords={v.highlightKeywords} />
